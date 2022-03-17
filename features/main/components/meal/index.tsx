@@ -1,28 +1,22 @@
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Food, Sum } from '../../../utils/types'
+import { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
+import { Food, Meal, Sum } from '../../../utils/types'
 import Select from 'react-select'
 import Image from 'next/image';
 
 type Props = {
-    name: string;
-    time: string;
+    meal: Meal;
     updateMealSum: any
+    removeEntireMeal: MouseEventHandler<HTMLImageElement>
 }
 
 export const MealPage = ({
-    name,
-    time,
+    meal,
     updateMealSum,
+    removeEntireMeal,
 }: Props) => {
     const tacoTableData = require('../../../utils/taco-table.json'); 
     const [foods, setFoods] = useState<Food[]>([])
-    const [sum, setSum] = useState<Sum>({
-        protein: 0,
-        carbohydrate: 0,
-        lipid: 0,
-        cal: 0,
-    })
     const setFood = (tableFood: any, qty: number) => {
         if (tableFood) {
             const foodToAdd: Food = {
@@ -71,7 +65,8 @@ export const MealPage = ({
         const formatedValue: number = (qty/base) * (value)
         return formatedValue
     }
-    useEffect(() => {
+
+    const sum: Sum = useMemo(() => {
         let sum: Sum = {
             protein: 0,
             carbohydrate: 0,
@@ -87,26 +82,38 @@ export const MealPage = ({
                 }
             )
         }
-        setSum(sum)
+        return sum
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [foods])
+
     const selectOptions = tacoTableData?.map((r: any) => ({
         value: r.id,
         label: r.description
     }))
 
     useEffect(() => {
-        if (sum) {
-            updateMealSum({
-                mealName: name,
-                mealSum: sum,
-            })
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        updateMealSum({
+            meal: meal,
+            mealSum: sum,
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sum])
 
     return (
         <div style={{ width: '100%' }}>
-            <h3 style={{ marginBottom: '10px' }}>{name} - {time}</h3>
+            <div style={{ display: 'flex', gap: '10px' }}>
+                <h3 style={{ marginBottom: '10px' }}>{meal.name} - {meal.time}</h3>
+                <div style={{ cursor: 'pointer' }}>
+                    <Image
+                        onClick={removeEntireMeal}
+                        width="20px"
+                        height="20px"
+                        src="/icons/rubbish-bin.png"
+                        alt="Remover"
+                    />
+                </div>
+            </div>
+            
             <form style={{ width: '100%' }} onSubmit={handleSubmit}>
                 <div style={{ display: 'flex', width: '100%', alignItems: 'flex-end', gap: '10px', marginBottom: '20px' }}>
                     <div style={{ width: '180px', display: 'grid' }}>
@@ -114,6 +121,7 @@ export const MealPage = ({
                         <input type="number" name="chosen_food_qty"
                             style={{
                                 borderColor: 'hsl(0, 0%, 80%)',
+                                padding: '5px 10px',
                                 borderRadius: '4px',
                                 minHeight: '38px',
                                 borderStyle: 'solid',

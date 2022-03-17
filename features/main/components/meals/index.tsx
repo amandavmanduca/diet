@@ -5,11 +5,13 @@ import { MealPage } from "../meal"
 
 export const MealsPage = () => {
     const [meals, setNewMeal] = useState<Meal[]>([])
+
     const handleSubmit = (event: any) => {
         event.preventDefault()
         const name = event.target.name.value
         const time = event.target.time.value
         setNewMeal([...meals, {
+            id: (Math.random() * 99),
             name: name,
             time: time,
             sum: {
@@ -27,16 +29,18 @@ export const MealsPage = () => {
         lipid: 0,
         cal: 0,
     })
+
     const updateMealSum = useCallback((values) => {
         if (values) {
-            const meal = meals.find((m: Meal) => m.name === values.mealName)
+            const meal = meals.find((m: Meal) => m.id === values.meal.id)
             if (meal) {
                 const currentMeal: Meal = {
+                    id: meal.id,
                     name: meal.name,
                     time: meal.time,
                     sum: values.mealSum,
                 }
-                const otherMeals = meals.filter((m: Meal) => m.name !== values.mealName)
+                const otherMeals = meals.filter((m: Meal) => m.id !== values.meal.id)
                 setNewMeal([
                     ...otherMeals,
                     currentMeal
@@ -62,8 +66,12 @@ export const MealsPage = () => {
             )
             setMealsSum(sum)
         }
-        localStorage.setItem("savedMeals", JSON.stringify(meals));
     }, [meals])
+
+    const removeEntireMeal = (id: number) => {
+        const filteredArray = meals.filter(m => m.id !== id)
+        setNewMeal(filteredArray)
+    }
 
     return (
         <div>
@@ -74,6 +82,7 @@ export const MealsPage = () => {
                         <input type="text" name="name"
                             style={{
                                 borderColor: 'hsl(0, 0%, 80%)',
+                                padding: '5px 10px',
                                 borderRadius: '4px',
                                 minHeight: '38px',
                                 borderStyle: 'solid',
@@ -90,6 +99,7 @@ export const MealsPage = () => {
                         <input type="time" name="time"
                             style={{
                                 borderColor: 'hsl(0, 0%, 80%)',
+                                padding: '5px 10px',
                                 borderRadius: '4px',
                                 minHeight: '38px',
                                 borderStyle: 'solid',
@@ -120,7 +130,11 @@ export const MealsPage = () => {
             </div>
             {meals?.map((m: Meal, index: number) => (
                 <div key={index}>
-                    <MealPage name={m.name} time={m.time} updateMealSum={updateMealSum} />
+                    <MealPage
+                        meal={m}
+                        updateMealSum={updateMealSum}
+                        removeEntireMeal={() => removeEntireMeal(m.id)}
+                    />
                 </div>
             ))}
         </div>

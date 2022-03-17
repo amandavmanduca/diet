@@ -20,6 +20,7 @@ export type Food = {
 }
 
 export type Meal = {
+    id: number,
     name: string,
     time: string,
     sum: Sum

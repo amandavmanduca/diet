@@ -16,7 +16,6 @@ const Home: NextPage = () => {
 
       <main className={styles.main} style={{ width: '100%', padding: '20px' }}>
         <MealsPage />
-        {/* <MealPage name={'Café da manhã'} time={'08:00'} /> */}
       </main>
 
       <footer className={styles.footer}>
