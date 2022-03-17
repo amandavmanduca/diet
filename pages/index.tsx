@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { Client } from '../features/main/components/client'
 import { MealPage } from '../features/main/components/meal'
 import { MealsPage } from '../features/main/components/meals'
 import styles from '../styles/Home.module.css'
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main} style={{ width: '100%', padding: '20px' }}>
+        <Client />
         <MealsPage />
       </main>
 
