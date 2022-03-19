@@ -15,8 +15,9 @@ export const MealPage = ({
     updateMealSum,
     removeEntireMeal,
 }: Props) => {
+    console.log('procurando foods ', meal)
     const tacoTableData = require('../../../utils/taco-table.json'); 
-    const [foods, setFoods] = useState<Food[]>([])
+    const [foods, setFoods] = useState<Food[]>(meal?.foods && meal?.foods)
     const setFood = (tableFood: any, qty: number) => {
         if (tableFood) {
             const foodToAdd: Food = {
@@ -92,8 +93,14 @@ export const MealPage = ({
     }))
 
     useEffect(() => {
+        console.log('foods antes', foods)
         updateMealSum({
-            meal: meal,
+            meal: {
+                id: meal.id,
+                name: meal.name,
+                time: meal.time,
+                foods: foods,
+            },
             mealSum: sum,
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps

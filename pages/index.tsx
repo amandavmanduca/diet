@@ -1,12 +1,38 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
 import { Client } from '../features/main/components/client'
-import { MealPage } from '../features/main/components/meal'
 import { MealsPage } from '../features/main/components/meals'
+import { GeneralContext } from '../features/main/context'
 import styles from '../styles/Home.module.css'
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { ClientData, Meal } from '../features/utils/types'
 
 const Home: NextPage = () => {
+  const [general, setGeneral] = useState<{
+    client: ClientData,
+    meals: Meal[]
+  } | any>({
+    client: null,
+    meals: [],
+  });
+  useEffect(() => {
+    const cookies = parseCookies()?.data
+    if (cookies) {
+        const cookieData = JSON.parse(cookies)
+        console.log(cookieData)
+        setGeneral(cookieData)
+    }
+    
+}, [])
+  useEffect(() => {
+    setCookie(null, 'data', JSON.stringify(general), {
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    })
+  }, [general])
+  console.log('teste ', general)
   return (
     <div className={styles.container}>
       <Head>
@@ -15,10 +41,12 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main} style={{ width: '100%', padding: '20px' }}>
-        <Client />
-        <MealsPage />
-      </main>
+      <GeneralContext.Provider value={{ general, setGeneral }}>
+        <main className={styles.main} style={{ width: '100%', padding: '20px' }}>
+          <Client />
+          <MealsPage />
+        </main>
+      </GeneralContext.Provider>
 
       <footer className={styles.footer}>
         <a
@@ -26,7 +54,7 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Desenvolvido por{' '}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>

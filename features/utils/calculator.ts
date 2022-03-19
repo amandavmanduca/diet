@@ -8,5 +8,5 @@ export const CalculateClientData = (values: {
     const tmr = weight_lb * 10
     const maintenance_cal = tmr * values.training_frequency
     const total_energetic_value = maintenance_cal * values.training_level
-    return total_energetic_value.toFixed(3)
+    return Number(total_energetic_value.toFixed(3))
 }
