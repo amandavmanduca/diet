@@ -31,7 +31,11 @@ const Home: NextPage = () => {
       maxAge: 30 * 24 * 60 * 60,
       path: '/',
     })
+    if (general.client?.client_name) {
+      setShow(false)
+    }
   }, [general])
+  const [show, setShow] = useState<boolean>(true)
   return (
     <div className={styles.container}>
       <Head>
@@ -53,7 +57,8 @@ const Home: NextPage = () => {
           >
             limpar tudo
           </button>
-          <Client />
+          <button onClick={() => setShow(true)}>mostrar cliente</button>
+          <Client show={show} setShow={setShow} />
           <MealsPage />
         </main>
       </GeneralContext.Provider>
