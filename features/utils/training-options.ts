@@ -17,12 +17,6 @@ export const trainingFrequency = [
     },
 ]
 
-export const trainingFrequencyLabels: any = {
-    "1.3": 'Sedentário',
-    "1.5": 'Ligeiramente ativo',
-    "1.7": 'Moderadamente ativo',
-    "1.9": 'Muito ativo',
-}
 export const trainingLevel = [
     {
         value: 1.10,

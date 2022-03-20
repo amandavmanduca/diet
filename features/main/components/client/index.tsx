@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Select from 'react-select'
+import Select from 'react-select';
 import { CalculateClientData } from "../../../utils/calculator"
 import { trainingFrequency, trainingLevel } from '../../../utils/training-options'
 import React, { useContext } from "react"
@@ -26,14 +26,10 @@ export const Client = () => {
         })
         event.target.reset();
     }
-    const number = Number(general?.client?.training_frequency)
-    let teste
-    if (number) {
-        teste = trainingFrequency?.find(o => o.value === number)
-    }
+
     return (
-        <div style={{ borderBottom: '1px solid black', marginBottom: '30px'  }}>
-            <form style={{ width: '100%', marginBottom: '30px' }} onSubmit={handleSubmit}>
+        <div style={{ borderBottom: '1px solid black', marginBottom: '10px' }}>
+            <form style={{ width: '100%', marginBottom: '25px' }} onSubmit={handleSubmit}>
                 <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-end' }}>
                     <div style={{ width: '180px', display: 'grid' }}>
                         <label>Nome: </label>
@@ -49,6 +45,7 @@ export const Client = () => {
                                 outline: '0!important',
                                 fontSize: '14px',
                                 fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif'
+                                
                             }}
                         />
                     </div>
@@ -74,9 +71,6 @@ export const Client = () => {
                         <Select
                             name="training_frequency"
                             placeholder="Selecione"
-                            defaultValue={{
-                                value: general?.client?.training_frequency,
-                            }}
                             isClearable
                             options={trainingFrequency} />
                     </div>
@@ -85,9 +79,6 @@ export const Client = () => {
                         <Select
                             name="training_level"
                             placeholder="Selecione"
-                            defaultValue={{
-                                value: general?.client?.training_level,
-                            }}
                             isClearable
                             options={trainingLevel}
                         />

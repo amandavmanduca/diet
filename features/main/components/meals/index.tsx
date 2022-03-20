@@ -37,7 +37,6 @@ export const MealsPage = () => {
         if (values) {
             const meal = general.meals.find((m: Meal) => m.id === values.meal.id)
             if (meal) {
-                console.log('testando o retorno pelo values ', values)
                 const currentMeal: Meal = {
                     id: meal.id,
                     name: meal.name,
@@ -82,14 +81,14 @@ export const MealsPage = () => {
     }
 
     return (
-        <div style={{ display: 'grid', gap: '30px' }}>
+        <div>
             {general?.client && (
                 <>
                 <h1>{general?.client?.client_name}</h1>
                 <h2>Cal: {general?.client?.energetic_value} - {mealsSum.cal.toFixed(2)} = {(Number(general?.client?.energetic_value) - Number(mealsSum.cal)).toFixed(2)}</h2>
             </>
             )}
-            <form style={{ width: '100%', marginBottom: '40px' }} onSubmit={handleSubmit}>
+            <form style={{ width: '100%', marginBottom: '20px' }} onSubmit={handleSubmit}>
                 <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-end' }}>
                     <div style={{ width: '180px', display: 'grid' }}>
                         <label>Nome: </label>
@@ -133,9 +132,9 @@ export const MealsPage = () => {
                     </button>
                 </div>
             </form>
-            <div style={{ marginBottom: '30px' }}>
+            <div style={{ marginBottom: '5px' }}>
                 <h4>Totais</h4>
-                <div style={{ display: 'flex', gap: '30px'}}>
+                <div style={{ display: 'flex', gap: '10px'}}>
                     <p>PTN: {mealsSum.protein.toFixed(2)}g</p>
                     <p>CHO: {mealsSum.carbohydrate.toFixed(2)}g</p>
                     <p>LIP: {mealsSum.lipid.toFixed(2)}g</p>

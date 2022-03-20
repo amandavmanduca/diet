@@ -43,6 +43,17 @@ const Home: NextPage = () => {
 
       <GeneralContext.Provider value={{ general, setGeneral }}>
         <main className={styles.main} style={{ width: '100%', padding: '20px' }}>
+          <button
+            onClick={() => (
+              destroyCookie(null, 'data'),
+              setGeneral({
+                client: null,
+                meals: [],
+              })
+            )}
+          >
+            limpar tudo
+          </button>
           <Client />
           <MealsPage />
         </main>

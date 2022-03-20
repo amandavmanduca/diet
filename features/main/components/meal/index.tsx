@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 type Props = {
     meal: Meal;
-    updateMealSum: any
+    updateMealSum: (values: any) => void
     removeEntireMeal: MouseEventHandler<HTMLImageElement>
 }
 
@@ -15,9 +15,9 @@ export const MealPage = ({
     updateMealSum,
     removeEntireMeal,
 }: Props) => {
-    console.log('procurando foods ', meal)
     const tacoTableData = require('../../../utils/taco-table.json'); 
     const [foods, setFoods] = useState<Food[]>(meal?.foods)
+    const [select, setSelect] = useState<any>()
     const setFood = (tableFood: any, qty: number) => {
         if (tableFood) {
             const foodToAdd: Food = {
@@ -54,6 +54,7 @@ export const MealPage = ({
             setFoods(allFoods)
         }
         event.target.reset();
+        setSelect(null)
     }
     const removeMeal = (id: number) => {
         const filteredArray = foods.filter(m => m.id !== id)
@@ -93,7 +94,6 @@ export const MealPage = ({
     }))
 
     useEffect(() => {
-        console.log('foods antes', foods)
         updateMealSum({
             meal: {
                 id: meal.id,
@@ -122,7 +122,7 @@ export const MealPage = ({
             </div>
             
             <form style={{ width: '100%' }} onSubmit={handleSubmit}>
-                <div style={{ display: 'flex', width: '100%', alignItems: 'flex-end', gap: '10px', marginBottom: '20px' }}>
+                <div style={{ display: 'flex', width: '100%', alignItems: 'flex-end', gap: '10px' }}>
                     <div style={{ width: '180px', display: 'grid' }}>
                         <label>Quantidade (g): </label>
                         <input type="number" name="chosen_food_qty"
@@ -142,7 +142,7 @@ export const MealPage = ({
                     </div>
                     <div style={{ width: '100%' }}>
                         <label>Alimento: </label>
-                        <Select name="chosen_food" placeholder="Selecione o alimento" isClearable options={selectOptions} />
+                        <Select name="chosen_food" value={select} placeholder="Selecione o alimento" isClearable options={selectOptions} />
                     </div>
                     <button
                         style={{ border: 'none', backgroundColor: 'transparent', width: '50px', height: '38px', cursor: 'pointer' }}
