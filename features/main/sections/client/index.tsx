@@ -28,24 +28,14 @@ export const Client = () => {
     }
 
     return (
-        <div style={{ borderBottom: '1px solid black', marginBottom: '10px' }}>
+        <div style={{ marginBottom: '10px', boxShadow: '0 2px 2px -2px rgba(0,0,0,.2)' }}>
             <form style={{ width: '100%', marginBottom: '25px' }} onSubmit={handleSubmit}>
                 <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-end' }}>
                     <div style={{ width: '180px', display: 'grid' }}>
                         <label>Nome: </label>
                         <input type="text" name="client_name" step=".01" defaultValue={general?.client?.client_name}
                             style={{
-                                borderColor: 'hsl(0, 0%, 80%)',
-                                padding: '5px 10px',
-                                borderRadius: '4px',
                                 minHeight: '38px',
-                                borderStyle: 'solid',
-                                backgroundColor: 'hsl(0, 0%, 100%)',
-                                borderWidth: '1px',
-                                outline: '0!important',
-                                fontSize: '14px',
-                                fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif'
-                                
                             }}
                         />
                     </div>
@@ -53,16 +43,7 @@ export const Client = () => {
                         <label>Peso (kg): </label>
                         <input type="number" name="weight_kg" step=".01" defaultValue={general?.client?.weight_kg}
                             style={{
-                                borderColor: 'hsl(0, 0%, 80%)',
-                                padding: '5px 10px',
-                                borderRadius: '4px',
                                 minHeight: '38px',
-                                borderStyle: 'solid',
-                                backgroundColor: 'hsl(0, 0%, 100%)',
-                                borderWidth: '1px',
-                                outline: '0!important',
-                                fontSize: '14px',
-                                fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif'
                             }}
                         />
                     </div>
@@ -84,10 +65,10 @@ export const Client = () => {
                         />
                     </div>
                     <button
-                        style={{ border: 'none', backgroundColor: 'transparent', width: '50px', height: '38px', cursor: 'pointer' }}
+                        style={{ border: 'none', backgroundColor: 'transparent', cursor: 'pointer' }}
                         type="submit"
                     >
-                        <Image width="38px" height="38px" src="/icons/addition.png" alt="Adicionar" />
+                        <p style={{ fontSize: '30px' }}>+</p>
                     </button>
                 </div>
             </form>

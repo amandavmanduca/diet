@@ -2,8 +2,8 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { Client } from '../features/main/components/client'
-import { MealsPage } from '../features/main/components/meals'
+import { Client } from '../features/main/sections/client'
+import { MealsPage } from '../features/main/sections/meals'
 import { GeneralContext } from '../features/main/context'
 import styles from '../styles/Home.module.css'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
@@ -32,7 +32,6 @@ const Home: NextPage = () => {
       path: '/',
     })
   }, [general])
-  console.log('teste ', general)
   return (
     <div className={styles.container}>
       <Head>
@@ -42,7 +41,7 @@ const Home: NextPage = () => {
       </Head>
 
       <GeneralContext.Provider value={{ general, setGeneral }}>
-        <main className={styles.main} style={{ width: '100%', padding: '20px' }}>
+        <main className={styles.main} style={{ width: '100%', padding: '20px', marginBottom: '100px' }}>
           <button
             onClick={() => (
               destroyCookie(null, 'data'),
@@ -59,7 +58,7 @@ const Home: NextPage = () => {
         </main>
       </GeneralContext.Provider>
 
-      <footer className={styles.footer}>
+      {/* <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
@@ -70,7 +69,7 @@ const Home: NextPage = () => {
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
-      </footer>
+      </footer> */}
     </div>
   )
 }
