@@ -3,7 +3,6 @@ import { useCallback, useContext, useEffect, useState } from "react"
 import { Meal, Sum } from "../../../utils/types"
 import { MealPage } from "../meal"
 import { GeneralContext } from "../../context"
-import { parseCookies, setCookie } from "nookies"
 
 export const MealsPage = () => {
     const { general, setGeneral } = useContext(GeneralContext);
@@ -25,17 +24,6 @@ export const MealsPage = () => {
             }
         }]
         setGeneral({ client: general?.client, meals: currentMeal })
-        // setNewMeal([...meals, {
-        //     id: (Math.random() * 99),
-        //     name: name,
-        //     time: time,
-        //     sum: {
-        //         protein: 0,
-        //         carbohydrate: 0,
-        //         lipid: 0,
-        //         cal: 0,
-        //     }
-        // }])
         event.target.reset();
     }
     const [mealsSum, setMealsSum] = useState<Sum>({
@@ -47,7 +35,6 @@ export const MealsPage = () => {
 
     const updateMealSum = useCallback((values) => {
         if (values) {
-            // const meal = meals.find((m: Meal) => m.id === values.meal.id)
             const meal = general.meals.find((m: Meal) => m.id === values.meal.id)
             if (meal) {
                 console.log('testando o retorno pelo values ', values)
@@ -55,7 +42,7 @@ export const MealsPage = () => {
                     id: meal.id,
                     name: meal.name,
                     time: meal.time,
-                    foods: values.meal.food || [],
+                    foods: values.meal.foods,
                     sum: values.mealSum,
                 }
                 const otherMeals = general.meals.filter((m: Meal) => m.id !== values.meal.id)
@@ -88,20 +75,14 @@ export const MealsPage = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [general.meals])
-
-    if (typeof window !== "undefined") {
-        var retrievedObject = localStorage.getItem('meals');
-        console.log(retrievedObject)
-    }
         
     const removeEntireMeal = (id: number) => {
         const filteredArray = general.meals.filter((m: any) => m.id !== id)
-        // setNewMeal(filteredArray)
         setGeneral({ client: general?.client, meals: filteredArray })
     }
 
     return (
-        <div>
+        <div style={{ display: 'grid', gap: '30px' }}>
             {general?.client && (
                 <>
                 <h1>{general?.client?.client_name}</h1>

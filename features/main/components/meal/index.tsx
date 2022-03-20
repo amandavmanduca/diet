@@ -1,5 +1,5 @@
 
-import { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
+import { MouseEventHandler, useEffect, useMemo, useState } from 'react';
 import { Food, Meal, Sum } from '../../../utils/types'
 import Select from 'react-select'
 import Image from 'next/image';
@@ -17,7 +17,7 @@ export const MealPage = ({
 }: Props) => {
     console.log('procurando foods ', meal)
     const tacoTableData = require('../../../utils/taco-table.json'); 
-    const [foods, setFoods] = useState<Food[]>(meal?.foods && meal?.foods)
+    const [foods, setFoods] = useState<Food[]>(meal?.foods)
     const setFood = (tableFood: any, qty: number) => {
         if (tableFood) {
             const foodToAdd: Food = {
