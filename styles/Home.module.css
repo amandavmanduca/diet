@@ -17,6 +17,8 @@
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .footer a {
@@ -24,6 +26,7 @@
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  font-size: 11px;
 }
 
 .title a {

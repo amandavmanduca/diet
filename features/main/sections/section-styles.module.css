@@ -64,6 +64,27 @@
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
+.mealCard {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #F5F5F5;
+    padding: 40px 20px;
+    border-radius: 4px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.mealItemsCard {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mealFormItems {
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    gap: 10px
+}
+
 .totalsItemsCard {
     display: flex;
     width: 100%;
@@ -86,6 +107,15 @@
     .totalsItemsCard {
         display: grid;
         gap: 20px;
+        grid-template-columns: 1fr;
+    }
+    .mealItemsCard {
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-bottom: 10px;
+    }
+    .mealFormItems {
+        display: grid;
         grid-template-columns: 1fr;
     }
 }

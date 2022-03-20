@@ -106,9 +106,9 @@ export const MealPage = ({
     }, [sum])
 
     return (
-        <div style={{ width: '100%', marginTop: '20px', backgroundColor: '#F5F5F5', padding: '40px 20px', borderRadius: '4px', boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', gap: '12px' }}>
+        <div className={styles.mealCard}>
+            <div className={styles.mealItemsCard}>
+                <div style={{ display: 'flex', gap: '8px' }}>
                     <h3 style={{ marginBottom: '10px', textTransform: 'uppercase', color: '#98D1BA' }}>{meal.name} - {meal.time}</h3>
                     <div style={{ cursor: 'pointer' }}>
                         <Image
@@ -129,8 +129,8 @@ export const MealPage = ({
             </div>
             
             <form style={{ width: '100%' }} onSubmit={handleSubmit}>
-                <div style={{ display: 'flex', width: '100%', alignItems: 'flex-end', gap: '10px' }}>
-                    <div style={{ width: '180px', display: 'grid' }}>
+                <div className={styles.mealFormItems}>
+                    <div style={{ display: 'grid' }}>
                         <h4 style={{ color: '#696969' }}>Quantidade (g):</h4>
                         <input type="number" name="chosen_food_qty"
                             className={styles.input}
