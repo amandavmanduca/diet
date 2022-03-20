@@ -33,6 +33,8 @@ const Home: NextPage = () => {
     })
     if (general.client?.client_name) {
       setShow(false)
+    } else {
+      setShow(true)
     }
   }, [general])
   const [show, setShow] = useState<boolean>(true)

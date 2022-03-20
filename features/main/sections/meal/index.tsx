@@ -152,8 +152,8 @@ export const MealPage = ({
             {foods?.length > 0 && (
                 <div style={{ marginTop: '15px' }}>
                     <h4 style={{ color: '#696969' }}>Alimentos Selecionados</h4>
-                    {meal?.foods?.map((food: Food, index) => (
-                        <div key={index}
+                    {meal?.foods?.map((food: Food) => (
+                        <div key={food.id}
                             style={{
                                 width: '100%',
                                 padding: '6px',

@@ -94,6 +94,7 @@ export const MealsPage = () => {
                     <div style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
                         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <p style={{ textTransform: 'uppercase', fontWeight: '500' }}>{general?.client?.client_name}</p>
+                            <label style={{ fontSize: '12px' }}>Calorias (cal)</label>
                             <div style={{ display: 'flex', gap: '20px' }}>
                                 <div style={{ textAlign: 'center' }}>
                                     <p>{general?.client?.energetic_value.toFixed(0)}</p>
@@ -174,7 +175,7 @@ export const MealsPage = () => {
                     </form>
                 </div>
             )}
-            {general?.meals?.length > 0 && general.meals.map((m: Meal, index: number) => (
+            {general?.meals?.length > 0 && general.meals.map((m: Meal) => (
                 <div key={m.id}>
                     <MealPage
                         meal={m}
