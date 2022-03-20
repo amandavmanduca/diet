@@ -1,12 +1,13 @@
 
-import { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
+import { MouseEventHandler, useEffect, useMemo, useState } from 'react';
 import { Food, Meal, Sum } from '../../../utils/types'
 import Select from 'react-select'
 import Image from 'next/image';
+import styles from '../section-styles.module.css'
 
 type Props = {
     meal: Meal;
-    updateMealSum: any
+    updateMealSum: (values: any) => void
     removeEntireMeal: MouseEventHandler<HTMLImageElement>
 }
 
@@ -16,7 +17,7 @@ export const MealPage = ({
     removeEntireMeal,
 }: Props) => {
     const tacoTableData = require('../../../utils/taco-table.json'); 
-    const [foods, setFoods] = useState<Food[]>([])
+    const [foods, setFoods] = useState<Food[]>(meal?.foods)
     const setFood = (tableFood: any, qty: number) => {
         if (tableFood) {
             const foodToAdd: Food = {
@@ -93,81 +94,75 @@ export const MealPage = ({
 
     useEffect(() => {
         updateMealSum({
-            meal: meal,
+            meal: {
+                id: meal.id,
+                name: meal.name,
+                time: meal.time,
+                foods: foods,
+            },
             mealSum: sum,
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sum])
 
     return (
-        <div style={{ width: '100%' }}>
-            <div style={{ display: 'flex', gap: '10px' }}>
-                <h3 style={{ marginBottom: '10px' }}>{meal.name} - {meal.time}</h3>
-                <div style={{ cursor: 'pointer' }}>
-                    <Image
-                        onClick={removeEntireMeal}
-                        width="20px"
-                        height="20px"
-                        src="/icons/rubbish-bin.png"
-                        alt="Remover"
-                    />
+        <div className={styles.mealCard}>
+            <div className={styles.mealItemsCard}>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                    <h3 style={{ marginBottom: '10px', textTransform: 'uppercase', color: '#98D1BA' }}>{meal.name} - {meal.time}</h3>
+                    <div style={{ cursor: 'pointer' }}>
+                        <Image
+                            onClick={removeEntireMeal}
+                            width="20px"
+                            height="20px"
+                            src="/icons/rubbish-bin.png"
+                            alt="Remover"
+                        />
+                    </div>
+                </div>                 
+                <div style={{ display: 'flex', gap: '30px'}}>
+                    <p style={{ color: '#97A1C1', fontSize: '14px', fontWeight: '500' }}>PTN: {sum.protein.toFixed(2)}g</p>
+                    <p style={{ color: '#EBB490', fontSize: '14px', fontWeight: '500' }}>CHO: {sum.carbohydrate.toFixed(2)}g</p>
+                    <p style={{ color: '#98D1BA', fontSize: '14px', fontWeight: '500' }}>LIP: {sum.lipid.toFixed(2)}g</p>
+                    <p style={{ color: 'gray', fontSize: '14px', fontWeight: '500' }}>CAL: {sum.cal.toFixed(2)}g</p>
                 </div>
             </div>
             
             <form style={{ width: '100%' }} onSubmit={handleSubmit}>
-                <div style={{ display: 'flex', width: '100%', alignItems: 'flex-end', gap: '10px', marginBottom: '20px' }}>
-                    <div style={{ width: '180px', display: 'grid' }}>
-                        <label>Quantidade (g): </label>
+                <div className={styles.mealFormItems}>
+                    <div style={{ display: 'grid' }}>
+                        <h4 style={{ color: '#696969' }}>Quantidade (g):</h4>
                         <input type="number" name="chosen_food_qty"
-                            style={{
-                                borderColor: 'hsl(0, 0%, 80%)',
-                                padding: '5px 10px',
-                                borderRadius: '4px',
-                                minHeight: '38px',
-                                borderStyle: 'solid',
-                                backgroundColor: 'hsl(0, 0%, 100%)',
-                                borderWidth: '1px',
-                                outline: '0!important',
-                                fontSize: '14px',
-                                fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif'
-                            }}
+                            className={styles.input}
                         />
                     </div>
                     <div style={{ width: '100%' }}>
-                        <label>Alimento: </label>
+                        <h4 style={{ color: '#696969' }}>Alimento</h4>
                         <Select name="chosen_food" placeholder="Selecione o alimento" isClearable options={selectOptions} />
                     </div>
                     <button
-                        style={{ border: 'none', backgroundColor: 'transparent', width: '50px', height: '38px', cursor: 'pointer' }}
+                        className={styles.additionButton}
                         type="submit"
                     >
-                        <Image width="38px" height="38px" src="/icons/addition.png" alt="Adicionar" />
+                        <p>+</p>
                     </button>
                 </div>
             </form>
-            <div style={{ marginBottom: '30px' }}>
-                <h4>Totais</h4>
-                <div style={{ display: 'flex', gap: '30px'}}>
-                    <p>PTN: {sum.protein.toFixed(2)}g</p>
-                    <p>CHO: {sum.carbohydrate.toFixed(2)}g</p>
-                    <p>LIP: {sum.lipid.toFixed(2)}g</p>
-                    <p>CAL: {sum.cal.toFixed(2)}g</p>
-                </div>
-            </div>
             {foods?.length > 0 && (
-                <>
-                    <h4>Alimentos Selecionados</h4>
-                    {foods?.map((food: Food, index) => (
-                        <div key={index}
+                <div style={{ marginTop: '15px' }}>
+                    <h4 style={{ color: '#696969' }}>Alimentos Selecionados</h4>
+                    {meal?.foods?.map((food: Food) => (
+                        <div key={food.id}
                             style={{
                                 width: '100%',
-                                padding: '10px',
+                                padding: '6px',
                                 borderBottom: '1px solid',
                                 display: 'flex',
                                 justifyContent: 'space-between',
-                                borderColor: '#D0D0D0'
+                                borderColor: '#D0D0D0',
+                                alignItems: 'flex-end'
                             }}>
-                            <p>{food?.description}; (Grama: {food?.chosen_qty})</p>
+                            <p style={{ fontSize: '14px', fontWeight: '500', color: 'gray' }}>{food?.description}; (Grama: {food?.chosen_qty})</p>
                             <div style={{ cursor: 'pointer' }}>
                                 <Image
                                     onClick={() => removeMeal(food.id)}
@@ -179,9 +174,8 @@ export const MealPage = ({
                             </div>
                         </div>
                     ))}
-                </>
+                </div>
             )}
-
         </div>
     )
 }

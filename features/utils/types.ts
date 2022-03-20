@@ -23,6 +23,7 @@ export type Meal = {
     id: number,
     name: string,
     time: string,
+    foods: Food[],
     sum: Sum
 }
 
@@ -32,3 +33,11 @@ export type Sum = {
     lipid: number;
     cal: number;
 }
+
+export type ClientData = {
+    client_name?: string,
+    weight_kg?: number,
+    training_frequency?: number,
+    training_level?: number,
+    energetic_value?: number,
+} | null
