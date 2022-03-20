@@ -3,6 +3,7 @@ import { useCallback, useContext, useEffect, useState } from "react"
 import { Meal, Sum } from "../../../utils/types"
 import { MealPage } from "../meal"
 import { GeneralContext } from "../../context"
+import styles from '../section-styles.module.css'
 
 export const MealsPage = () => {
     const { general, setGeneral } = useContext(GeneralContext);
@@ -90,8 +91,8 @@ export const MealsPage = () => {
     return (
         <div>
             {general?.client && (
-                <div style={{ marginBottom: '20px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', backgroundColor: '#F5F5F5', padding: '20px', borderRadius: '4px', boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' }}>
-                    <div style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
+                <div className={styles.mealsCard}>
+                    <div className={styles.totalsItemsCard}>
                         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <p style={{ textTransform: 'uppercase', fontWeight: '500' }}>{general?.client?.client_name}</p>
                             <label style={{ fontSize: '12px' }}>Calorias (cal)</label>
@@ -121,7 +122,7 @@ export const MealsPage = () => {
                             <div style={{ width: '100%' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                     <h4>Distribuições Totais</h4>
-                                    <div style={{ width: '300px', display: 'flex', height: '35px', marginTop: '5px' }}>
+                                    <div style={{ width: '280px', display: 'flex', height: '35px', marginTop: '5px' }}>
                                         <div style={{ fontSize: '14px', width: `${getMacroPercentage(mealsSum, mealsSum.protein)}%`, backgroundColor: '#97A1C1', display: 'flex', justifyContent: 'center', height: '100%', alignItems: 'center' }}>
                                             {getMacroPercentage(mealsSum, mealsSum.protein).toFixed(0)}%
                                         </div>
@@ -145,31 +146,27 @@ export const MealsPage = () => {
                 </div>
             )}
             {general?.client?.client_name && (
-                <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', backgroundColor: '#F5F5F5', padding: '20px', borderRadius: '4px', boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' }}>
+                <div className={styles.mealsCard}>
                     <h4 style={{ color: '#505050' }}>Adicionar refeição</h4>
                     <form style={{ width: '100%', display: 'flex', justifyContent: 'center' }} onSubmit={handleSubmit}>
-                        <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-end' }}>
-                            <div style={{ width: '180px', display: 'grid' }}>
-                                <h4 style={{ color: '#696969' }}>Nome</h4>
+                        <div className={styles.newMealItemCard}>
+                            <div style={{ display: 'grid' }}>
+                                <h4 className={styles.h4subTitle}>Nome</h4>
                                 <input type="text" name="name"
-                                    style={{
-                                        minHeight: '38px',
-                                    }}
+                                    className={styles.input}
                                 />
                             </div>
-                            <div style={{ width: '180px', display: 'grid' }}>
-                                <h4 style={{ color: '#696969' }}>Hora</h4>
+                            <div style={{ display: 'grid' }}>
+                                <h4 className={styles.h4subTitle}>Hora</h4>
                                 <input type="time" name="time"
-                                    style={{
-                                        minHeight: '38px',
-                                    }}
+                                    className={styles.input}
                                 />
                             </div>
                             <button
-                                style={{ border: 'none', backgroundColor: 'transparent', cursor: 'pointer' }}
+                                className={styles.additionButton}
                                 type="submit"
                             >
-                                <p style={{ fontSize: '30px' }}>+</p>
+                                <p>+</p>
                             </button>
                         </div>
                     </form>

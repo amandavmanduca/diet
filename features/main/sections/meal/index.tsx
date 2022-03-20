@@ -3,6 +3,7 @@ import { MouseEventHandler, useEffect, useMemo, useState } from 'react';
 import { Food, Meal, Sum } from '../../../utils/types'
 import Select from 'react-select'
 import Image from 'next/image';
+import styles from '../section-styles.module.css'
 
 type Props = {
     meal: Meal;
@@ -132,9 +133,7 @@ export const MealPage = ({
                     <div style={{ width: '180px', display: 'grid' }}>
                         <h4 style={{ color: '#696969' }}>Quantidade (g):</h4>
                         <input type="number" name="chosen_food_qty"
-                            style={{
-                                minHeight: '38px',
-                            }}
+                            className={styles.input}
                         />
                     </div>
                     <div style={{ width: '100%' }}>
@@ -142,10 +141,10 @@ export const MealPage = ({
                         <Select name="chosen_food" placeholder="Selecione o alimento" isClearable options={selectOptions} />
                     </div>
                     <button
-                        style={{ border: 'none', backgroundColor: 'transparent', cursor: 'pointer' }}
+                        className={styles.additionButton}
                         type="submit"
                     >
-                        <p style={{ fontSize: '30px' }}>+</p>
+                        <p>+</p>
                     </button>
                 </div>
             </form>

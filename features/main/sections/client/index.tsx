@@ -2,8 +2,9 @@ import Image from "next/image"
 import Select from 'react-select';
 import { CalculateClientData } from "../../../utils/calculator"
 import { trainingFrequency, trainingLevel } from '../../../utils/training-options'
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext } from "react"
 import { GeneralContext } from "../../context"
+import styles from '../section-styles.module.css'
 
 type Props = {
     show: boolean,
@@ -37,27 +38,23 @@ export const Client = ({ show, setShow }: Props) => {
     return (
         <>
         {show && (
-        <div style={{ marginBottom: '10px', boxShadow: '0 2px 2px -2px rgba(0,0,0,.2)' }}>
-            <form style={{ width: '100%', marginBottom: '25px' }} onSubmit={handleSubmit}>
-                <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-end' }}>
-                    <div style={{ width: '180px', display: 'grid' }}>
-                        <h4 style={{ color: '#696969' }}>Nome</h4>
+        <div className={styles.clientCard}>
+            <form style={{ width: '100%', padding: '20px 0px' }} onSubmit={handleSubmit}>
+                <div className={styles.clientItemsCard}>
+                    <div style={{ width: '100%' }}>
+                        <h4 className={styles.h4subTitle}>Nome</h4>
                         <input type="text" name="client_name" step=".01" defaultValue={general?.client?.client_name}
-                            style={{
-                                minHeight: '38px',
-                            }}
-                        />
-                    </div>
-                    <div style={{ width: '180px', display: 'grid' }}>
-                        <h4 style={{ color: '#696969' }}>Peso (kg)</h4>
-                        <input type="number" name="weight_kg" step=".01" defaultValue={general?.client?.weight_kg}
-                            style={{
-                                minHeight: '38px',
-                            }}
+                            className={styles.input}
                         />
                     </div>
                     <div style={{ width: '100%' }}>
-                        <h4 style={{ color: '#696969' }}>Frequência de treino</h4>
+                        <h4 className={styles.h4subTitle}>Peso (kg)</h4>
+                        <input type="number" name="weight_kg" step=".01" defaultValue={general?.client?.weight_kg}
+                            className={styles.input}
+                        />
+                    </div>
+                    <div style={{ width: '100%' }}>
+                        <h4 className={styles.h4subTitle}>Frequência de treino</h4>
                         <Select
                             name="training_frequency"
                             placeholder="Selecione"
@@ -65,7 +62,7 @@ export const Client = ({ show, setShow }: Props) => {
                             options={trainingFrequency} />
                     </div>
                     <div style={{ width: '100%' }}>
-                        <h4 style={{ color: '#696969' }}>Nível de treinamento</h4>
+                        <h4 className={styles.h4subTitle}>Nível de treinamento</h4>
                         <Select
                             name="training_level"
                             placeholder="Selecione"
@@ -74,10 +71,10 @@ export const Client = ({ show, setShow }: Props) => {
                         />
                     </div>
                     <button
-                        style={{ border: 'none', backgroundColor: 'transparent', cursor: 'pointer' }}
+                        className={styles.additionButton}
                         type="submit"
                     >
-                        <p style={{ fontSize: '30px' }}>+</p>
+                        <p>+</p>
                     </button>
                 </div>
             </form>
