@@ -19,4 +19,5 @@ This is a simplified Nutricion Project to count calories
 ## Tecnologies
 
 - ReactJS with NextJS
+- CSS Modules
 
