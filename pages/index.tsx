@@ -21,7 +21,6 @@ const Home: NextPage = () => {
     const cookies = parseCookies()?.data
     if (cookies) {
         const cookieData = JSON.parse(cookies)
-        console.log(cookieData)
         setGeneral(cookieData)
     }
     
