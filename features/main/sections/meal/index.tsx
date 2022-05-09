@@ -4,6 +4,7 @@ import { Food, Meal, Sum } from '../../../utils/types'
 import Select from 'react-select'
 import Image from 'next/image';
 import styles from '../section-styles.module.css'
+import PdfDownload from '../../pdf-generator/PdfDownload';
 
 type Props = {
     meal: Meal;
@@ -16,25 +17,30 @@ export const MealPage = ({
     updateMealSum,
     removeEntireMeal,
 }: Props) => {
-    const tacoTableData = require('../../../utils/taco-table.json'); 
+    // const tacoTableData = require('../../../utils/taco-table.json'); 
+    const usdaTableData = require('../../../utils/usda-table.json');
+    const tacoTableData = require('../../../utils/new-taco-table.json');
+    const suplementosTableData = require('../../../utils/suplementos-table.json');
+    const degrandisTableData = require('../../../utils/degrandis-table.json');
+    const allTablesData = [...usdaTableData, ...tacoTableData, ...suplementosTableData, ...degrandisTableData]
     const [foods, setFoods] = useState<Food[]>(meal?.foods)
     const setFood = (tableFood: any, qty: number) => {
         if (tableFood) {
             const foodToAdd: Food = {
                 id: tableFood?.id,
-                description: tableFood?.description,
+                description: tableFood?.Descricao,
                 attributes: {
                     protein: {
-                        qty: tableFood?.attributes?.protein?.qty
+                        qty: tableFood?.Proteina,
                     },
                     carbohydrate:{
-                        qty: tableFood?.attributes?.carbohydrate?.qty
+                        qty: tableFood?.CHO,
                     },
                     lipid: {
-                        qty: tableFood?.attributes?.lipid?.qty
+                        qty: tableFood?.Lipideos
                     },
                     energy: {
-                        kcal: tableFood?.attributes?.energy?.kcal
+                        kcal: tableFood?.Energia
                     },
                 },
                 base_qty: 100,
@@ -46,7 +52,7 @@ export const MealPage = ({
 
     const handleSubmit = (event: any) => {
         event.preventDefault()
-        const food = tacoTableData[(event.target.chosen_food.value)-1]
+        const food = allTablesData.find((f: any) => event.target.chosen_food.value == f.id)
         const qty = event.target.chosen_food_qty.value
         const foodToAdd: Food | undefined = setFood(food, qty)
         if (foodToAdd) {
@@ -87,9 +93,9 @@ export const MealPage = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [foods])
 
-    const selectOptions = tacoTableData?.map((r: any) => ({
+    const selectOptions = allTablesData?.map((r: any) => ({
         value: r.id,
-        label: r.description
+        label: r.Descricao
     }))
 
     useEffect(() => {
@@ -124,7 +130,7 @@ export const MealPage = ({
                     <p style={{ color: '#97A1C1', fontSize: '14px', fontWeight: '500' }}>PTN: {sum.protein.toFixed(2)}g</p>
                     <p style={{ color: '#EBB490', fontSize: '14px', fontWeight: '500' }}>CHO: {sum.carbohydrate.toFixed(2)}g</p>
                     <p style={{ color: '#98D1BA', fontSize: '14px', fontWeight: '500' }}>LIP: {sum.lipid.toFixed(2)}g</p>
-                    <p style={{ color: 'gray', fontSize: '14px', fontWeight: '500' }}>CAL: {sum.cal.toFixed(2)}g</p>
+                    <p style={{ color: 'gray', fontSize: '14px', fontWeight: '500' }}>CAL: {sum.cal.toFixed(2)}kcal</p>
                 </div>
             </div>
             
@@ -162,7 +168,7 @@ export const MealPage = ({
                                 borderColor: '#D0D0D0',
                                 alignItems: 'flex-end'
                             }}>
-                            <p style={{ fontSize: '14px', fontWeight: '500', color: 'gray' }}>{food?.description}; (Grama: {food?.chosen_qty})</p>
+                            <p style={{ fontSize: '14px', fontWeight: '500', color: 'gray' }}>{food?.description}; (Grama: {food?.chosen_qty} - CAL: {food?.attributes?.energy?.kcal}kcal/100g)</p>
                             <div style={{ cursor: 'pointer' }}>
                                 <Image
                                     onClick={() => removeMeal(food.id)}

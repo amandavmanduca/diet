@@ -8,6 +8,12 @@ import { GeneralContext } from '../features/main/context'
 import styles from '../styles/Home.module.css'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { ClientData, Meal } from '../features/utils/types'
+import dynamic from 'next/dynamic'
+
+const PdfDownload = dynamic(
+  () => import('../features/main/pdf-generator/PdfDownload'),
+  { ssr: false }
+)
 
 const Home: NextPage = () => {
   const [general, setGeneral] = useState<{
@@ -21,7 +27,6 @@ const Home: NextPage = () => {
     const cookies = parseCookies()?.data
     if (cookies) {
         const cookieData = JSON.parse(cookies)
-        console.log(cookieData)
         setGeneral(cookieData)
     }
     
@@ -83,6 +88,9 @@ const Home: NextPage = () => {
           </div>
           <Client show={show} setShow={setShow} />
           <MealsPage />
+          <div style={{ marginTop: '10px' }}>
+            {typeof window !== 'undefined' && general?.client && general?.meals.length > 0 && <PdfDownload data={general} />}
+          </div>
         </main>
       </GeneralContext.Provider>
 

@@ -137,7 +137,7 @@ export const MealsPage = () => {
                                         <p style={{ color: '#97A1C1', fontSize: '14px', fontWeight: '500' }}>PTN: {mealsSum.protein.toFixed(2)}g</p>
                                         <p style={{ color: '#EBB490', fontSize: '14px', fontWeight: '500' }}>CHO: {mealsSum.carbohydrate.toFixed(2)}g</p>
                                         <p style={{ color: '#98D1BA', fontSize: '14px', fontWeight: '500' }}>LIP: {mealsSum.lipid.toFixed(2)}g</p>
-                                        <p style={{ color: 'gray', fontSize: '14px', fontWeight: '500' }}>CAL: {mealsSum.cal.toFixed(2)}g</p>
+                                        <p style={{ color: 'gray', fontSize: '14px', fontWeight: '500' }}>CAL: {mealsSum.cal.toFixed(2)}kcal</p>
                                     </div>
                                 </div>
                             </div>
