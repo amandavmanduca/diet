@@ -4,6 +4,7 @@ import { Food, Meal, Sum } from '../../../utils/types'
 import Select from 'react-select'
 import Image from 'next/image';
 import styles from '../section-styles.module.css'
+import PdfDownload from '../../pdf-generator/PdfDownload';
 
 type Props = {
     meal: Meal;
