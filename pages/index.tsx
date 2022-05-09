@@ -88,7 +88,9 @@ const Home: NextPage = () => {
           </div>
           <Client show={show} setShow={setShow} />
           <MealsPage />
-          {typeof window !== 'undefined' && general?.client && general?.meals.length > 0 && <PdfDownload data={general} />}
+          <div style={{ marginTop: '10px' }}>
+            {typeof window !== 'undefined' && general?.client && general?.meals.length > 0 && <PdfDownload data={general} />}
+          </div>
         </main>
       </GeneralContext.Provider>
 
