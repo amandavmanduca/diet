@@ -10,6 +10,19 @@
   flex-direction: column;
 }
 
+.instructions {
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 700px) {
+  .instructions {
+    grid-template-columns: 1fr;
+  }
+}
+
 .footer {
   display: flex;
   flex: 1;

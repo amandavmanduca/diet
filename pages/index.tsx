@@ -9,6 +9,7 @@ import styles from '../styles/Home.module.css'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { ClientData, Meal } from '../features/utils/types'
 import dynamic from 'next/dynamic'
+import Header from '../features/main/sections/header'
 
 const PdfDownload = dynamic(
   () => import('../features/main/pdf-generator/PdfDownload'),
@@ -53,6 +54,7 @@ const Home: NextPage = () => {
 
       <GeneralContext.Provider value={{ general, setGeneral }}>
         <main className={styles.main} style={{ width: '100%', padding: '20px', marginBottom: '100px' }}>
+          <Header />
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
             <div>
               {!show && (
@@ -94,12 +96,14 @@ const Home: NextPage = () => {
         </main>
       </GeneralContext.Provider>
 
-      <footer className={styles.footer}>
+      <footer className={styles.footer} style={{ padding: '20px' }}>
+        <p style={{ fontSize: '14px', textAlign: 'center' }}>Esse site foi desenvolvido apenas para fins didáticos de uso pessoal.</p>
+        <p style={{ fontSize: '14px', textAlign: 'center' }}>Prescrição dietética para outras pessoas só pode ser realizada por nutricionistas, conforme LEI Nº 8.234, de 17 de setembro de 1991.</p>
         <a
           href="https://www.instagram.com/nutrifabriciodegrandis"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ fontSize: '14px' }}
+          style={{ fontSize: '14px', marginTop: '20px' }}
         >
           Nutricionista Fabrício Degrandis
         </a>

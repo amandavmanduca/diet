@@ -95,7 +95,7 @@ export const MealPage = ({
 
     const selectOptions = allTablesData?.map((r: any) => ({
         value: r.id,
-        label: r.Descricao
+        label: r.Descricao + ' ' + `(${(r.Energia.toFixed(1))}kcal/100g)`
     }))
 
     useEffect(() => {
@@ -168,7 +168,7 @@ export const MealPage = ({
                                 borderColor: '#D0D0D0',
                                 alignItems: 'flex-end'
                             }}>
-                            <p style={{ fontSize: '14px', fontWeight: '500', color: 'gray' }}>{food?.description}; (Grama: {food?.chosen_qty} - CAL: {food?.attributes?.energy?.kcal}kcal/100g)</p>
+                            <p style={{ fontSize: '14px', fontWeight: '500', color: 'gray' }}>{food?.description}; (Grama: {food?.chosen_qty} - CAL: {(food?.attributes?.energy?.kcal).toFixed(2)}kcal/100g)</p>
                             <div style={{ cursor: 'pointer' }}>
                                 <Image
                                     onClick={() => removeMeal(food.id)}
