@@ -57,7 +57,7 @@ const Home: NextPage = () => {
           <Header />
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
             <div>
-              {!show && (
+              {/* {!show && (
                 <div
                   style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}
                   onClick={() => setShow(true)}>
@@ -67,7 +67,7 @@ const Home: NextPage = () => {
                   />
                   <h5>Alterar usuário</h5>
                 </div>
-              )}
+              )} */}
             </div>
             {general.client?.client_name && (
             <div
